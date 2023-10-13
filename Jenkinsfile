@@ -14,6 +14,15 @@ pipeline {
                 sh './docker-bench-security.sh'
             }
         }
+    stage('snyk checking') {
+      steps {
+        echo 'snyk testing...'
+        snykSecurity(
+          snykInstallation: "snyk@one",
+          snykTokenId: "snyk",
+          // place other parameters here
+        )
+      }
         stage('SonarQube Analysis') {
             steps {
                 script {
