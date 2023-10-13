@@ -14,6 +14,7 @@ pipeline {
                 sh './docker-bench-security.sh'
             }
         }
+        
     stage('snyk checking') {
       steps {
         echo 'snyk testing...'
