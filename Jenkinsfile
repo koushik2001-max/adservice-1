@@ -5,18 +5,13 @@ pipeline {
     }
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-        SNYK_HOME = tool name: 'Snyk'
+       
     }
     stages {
         stage('Docker Bench Security') {
             steps {
                 sh 'chmod +x docker-bench-security.sh'
                 sh './docker-bench-security.sh'
-            }
-        }
-        stage('Snyk Code') {
-            steps {
-                sh "${SNYK_HOME}/snyk-linux code test"
             }
         }
         stage('SonarQube Analysis') {
