@@ -5,7 +5,6 @@ pipeline {
     }
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-       
     }
     stages {
         stage('Docker Bench Security') {
@@ -14,16 +13,12 @@ pipeline {
                 sh './docker-bench-security.sh'
             }
         }
-        
-    stage('snyk checking') {
-      steps {
-        echo 'snyk testing...'
-        snykSecurity(
-          snykInstallation: "snyk@one",
-          snykTokenId: "snyk",
-          // place other parameters here
-        )
-      }
+        stage('Snyk Checking') {
+            steps {
+                echo 'Running Snyk security testing...'
+                sh "snyk test" // Assuming 'snyk' is installed and available in your environment
+            }
+        }
         stage('SonarQube Analysis') {
             steps {
                 script {
@@ -59,5 +54,4 @@ pipeline {
             sh 'docker logout'
         }
     }
-}
 }
