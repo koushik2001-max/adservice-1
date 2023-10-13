@@ -13,25 +13,12 @@ pipeline {
                 sh './docker-bench-security.sh'
             }
         }
-    stage('snyk checking') {
-
-      steps {
-
-        echo 'snyk testing...'
-
-        snykSecurity(
-
-          snykInstallation: "snyk@latest",
-
-          snykTokenId: "organisation-snyk-api-token",
-
-          // place other parameters here
-
-        )
-
-      }
-
-    }
+        stage('Snyk Checking') {
+            steps {
+                echo 'Running Snyk security testing...'
+                sh "snyk test" // Assuming 'snyk' is installed and available in your environment
+            }
+        }
         stage('SonarQube Analysis') {
             steps {
                 script {
@@ -45,7 +32,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def dockerImage = docker.build('koushiksai/jenkins-adservice-hub:latest', '.')
+                    def dockerImage = docker.build('koushiksai/jenkins-docker-hub:latest', '.')
                 }
             }
         }
@@ -58,7 +45,7 @@ pipeline {
         }
         stage('Push') {
             steps {
-                sh 'docker push koushiksai/jenkins-adservice-hub'
+                sh 'docker push koushiksai/jenkins-docker-hub'
             }
         }
     }
