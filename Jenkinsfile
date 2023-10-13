@@ -15,15 +15,17 @@ pipeline {
       }
     }
 
-    stage('snyk checking') {
-      steps {
-        echo 'snyk testing...'
-        snykSecurity(
-          snykInstallation: "snyk@latest",
-          snykTokenId: "organisation-snyk-api-token",
-          // place other parameters here
-        )
-      }
+   environment {
+        SNYK_HOME = tool name: 'Snyk'
+    }
+
+    stages {
+        
+        stage('Snyk Code') {
+            steps {
+                sh "${SNYK_HOME}/snyk-linux code test"
+            }
+        }
     }
 
     
