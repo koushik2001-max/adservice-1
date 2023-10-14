@@ -19,8 +19,11 @@ pipeline {
       steps {
        
 
-        sh '/var/opt/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner  -Dsonar.projectKey=adservice-1  -Dsonar.sources=.   -Dsonar.host.url=http://172.31.7.193:9000   -Dsonar.token=sqp_1333351cee9fa544c5ac1defda6c6e02db694358'
-      
+      sonar-scanner \
+  -Dsonar.projectKey=adservice-1 \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=http://52.66.251.31:9000 \
+  -Dsonar.token=sqp_2df3f41e9f9d147e75100fb9c37e6fb077bffc20      
         
       }
     }
