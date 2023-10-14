@@ -20,10 +20,10 @@ pipeline {
        
 
       sonar-scanner \
-  -Dsonar.projectKey=adservice-1 \
-  -Dsonar.sources=. \
-  -Dsonar.host.url=http://52.66.251.31:9000 \
-  -Dsonar.token=sqp_2df3f41e9f9d147e75100fb9c37e6fb077bffc20      
+       -Dsonar.projectKey=adservice-1 \
+       -Dsonar.sources=. \
+       -Dsonar.host.url=http://52.66.251.31:9000 \
+       -Dsonar.token=sqp_2df3f41e9f9d147e75100fb9c37e6fb077bffc20      
         
       }
     }
