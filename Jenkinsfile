@@ -14,19 +14,17 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
+       stage('SonarQube Analysis') {
           agent any
-      steps {
+       steps {
        
 
-      sonar-scanner \
-       -Dsonar.projectKey=adservice-1 \
-       -Dsonar.sources=. \
-       -Dsonar.host.url=http://52.66.251.31:9000 \
-       -Dsonar.token=sqp_2df3f41e9f9d147e75100fb9c37e6fb077bffc20      
+        sh '/var/opt/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner  -Dsonar.projectKey=adservice-   -Dsonar.sources=.   -Dsonar.host.url=http://172.31.7.193:9000 -Dsonar.token=sqp_391fc52230ca8a7ea4fd28686ac079f514c89dd2'
+      
         
       }
     }
+ 
 
         stage('Build Docker Image') {
             steps {
