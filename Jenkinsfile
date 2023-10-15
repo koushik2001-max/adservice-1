@@ -19,7 +19,7 @@ pipeline {
        steps {
        
 
-        sh '/var/opt/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner  -Dsonar.projectKey=adservice-   -Dsonar.sources=.   -Dsonar.host.url=http://172.31.7.193:9000 -Dsonar.token=sqp_391fc52230ca8a7ea4fd28686ac079f514c89dd2'
+        sh '/var/opt/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner  -Dsonar.projectKey=adservice-   -Dsonar.sources=. -Dsonar.java.binaries=path/to/compiled/classes  -Dsonar.exclusions=**/*.java  -Dsonar.host.url=http://172.31.7.193:9000 -Dsonar.token=sqp_391fc52230ca8a7ea4fd28686ac079f514c89dd2'
       
         
       }
