@@ -1,8 +1,8 @@
 def secrets = [
-  [path: 'secrets/creds/my-secret-text', engineVersion: 2, secretValues: [
+  [path: 'secrets/creds/my-secret-text',secretValues: [
     [envVar: 'secret', vaultKey: 'secret'],]],
 ]
-def configuration = [vaultUrl: 'http://13.233.214.235:8200',  vaultCredentialId: 'vault-geeth-app', engineVersion: 2]
+def configuration = [vaultUrl: 'http://13.233.214.235:8200',  vaultCredentialId: 'vault-geeth-app']
 
 pipeline {
     agent any
