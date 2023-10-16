@@ -1,3 +1,9 @@
+def secrets = [
+  [path: 'secrets/creds/my-secret-text', engineVersion: 2, secretValues: [
+    [envVar: 'secret', vaultKey: 'secret'],]],
+]
+def configuration = [vaultUrl: 'http://13.233.251.37:8200',  vaultCredentialId: 'vault-geeth-app', engineVersion: 2]
+
 pipeline {
     agent any
     options {
@@ -12,6 +18,16 @@ pipeline {
                 sh 'chmod +x docker-bench-security.sh'
                 sh './docker-bench-security.sh'
             }
+        }
+        stages {
+
+
+            stage('vaultt'){
+           steps{
+
+          withVault([configuration: configuration, vaultSecrets: secrets]) {
+          sh "echo ${env.username}"
+          sh "echo ${env.password}"
         }
 
        stage('SonarQube Analysis') {
