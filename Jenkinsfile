@@ -1,16 +1,3 @@
-def secrets = [
-    [
-        path: 'secrets/metadata/creds/my-secret-text', 
-        engineVersion: 2, 
-        secretValues: [
-            [envVar: 'secrets', vaultKey: 'secret']
-        ]
-    ]
-]
-
-def configuration = [vaultUrl: 'http://13.233.214.235:8200',  vaultCredentialId: 'vault-geetha-token', engineVersion: 2]
-
-
 pipeline {
     agent any
     options {
@@ -36,7 +23,7 @@ pipeline {
             sh 'vault kv get -field=user v1/secrets/metadata/creds/my-secret-text'
         }
 
-        def secrets = [
+       def secrets = [
             [path: 'v1/secrets/metadata/creds/my-secret-text', secretValues: [
                 [vaultKey: 'secret']]]
         ]
