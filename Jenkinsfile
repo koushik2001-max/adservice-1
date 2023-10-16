@@ -15,7 +15,6 @@ pipeline {
         }
     stage('Test')
         {
-        println("TEST 1")
         withCredentials([[
             $class: 'VaultTokenCredentialBinding',
             credentialsId: 'vault-geetha-token',
