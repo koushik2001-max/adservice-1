@@ -19,17 +19,17 @@ pipeline {
                 sh './docker-bench-security.sh'
             }
         }
-        stages {
-
-
-            stage('vaultt'){
+      stage('vaultt'){
            steps{
-
           withVault([configuration: configuration, vaultSecrets: secrets]) {
           sh "echo ${env.username}"
           sh "echo ${env.password}"
         }
 
+      }
+      
+    }
+             
        stage('SonarQube Analysis') {
           agent any
        steps {
