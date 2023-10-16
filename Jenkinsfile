@@ -15,6 +15,7 @@ pipeline {
         }
     stage('Test')
         {
+        steps{
         withCredentials([[
             $class: 'VaultTokenCredentialBinding',
             credentialsId: 'vault-geetha-token',
@@ -31,6 +32,7 @@ pipeline {
             sh 'echo ${env.secret}'
         }
     }
+}
 
      stage('vaultt'){
            steps{
