@@ -8,12 +8,7 @@ def secrets = [
     ]
 ]
 
-def configuration = [
-    vaultUrl: 'http://13.233.214.235:8200',
-    vaultCredentialId: 'vault-geeth-app',
-    engineVersion: 2
-]
-
+def configuration = [vaultUrl: 'http://13.233.214.235:8200',  vaultCredentialId: 'vault-geeth-app', engineVersion: 2]
 
 
 pipeline {
@@ -35,7 +30,7 @@ pipeline {
      stage('vaultt'){
            steps{
           withVault([configuration: configuration, vaultSecrets: secrets]) {
-          echo "$secrets"
+          sh "echo ${env.secrets}"
 
         }
 
