@@ -31,16 +31,18 @@ pipeline {
                 sh './docker-bench-security.sh'
             }
         }
-        stage('Get Secret from Vault') {
-            steps {
-                script {
-                    def vault = vault path: 'secrets/creds/my-secret-text'
-                    def secret = vault read: 'secret'
-                    echo "My Secret: ${secret.data.secret}"
-                }
-            }
+        
+     stage('vaultt'){
+           steps{
+          withVault([configuration: configuration, vaultSecrets: secrets]) {
+          echo "$secrets"
+
         }
-       
+
+      }
+      
+    }
+      
        stage('SonarQube Analysis') {
           agent any
        steps {
