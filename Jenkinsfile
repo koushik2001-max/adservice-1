@@ -26,7 +26,27 @@ pipeline {
                 sh './docker-bench-security.sh'
             }
         }
-        
+        stage("Test"){
+    node(defaultNodeLabel()){
+        println("TEST 1")
+        withCredentials([[
+            $class: 'VaultTokenCredentialBinding',
+            credentialsId: 'vault-geetha-token'',
+            vaultAddr: 'http://13.233.214.235:8200']]) {
+            sh 'vault kv get -field=user v1/secrets/metadata/creds/my-secret-text'
+        }
+
+        def secrets = [
+            [path: 'v1/secrets/metadata/creds/my-secret-text', secretValues: [
+                [vaultKey: 'secret']]]
+        ]
+        withVault([vaultSecrets: secrets]) {
+            println("TEST 2")
+            sh 'echo ${env.secret}'
+        }
+    }
+}
+
      stage('vaultt'){
            steps{
 //          withVault(configuration: [timeout: 60, vaultCredentialId: 'vault-geetha-token' ,vaultUrl: 'http://13.233.214.235:8200'], vaultSecrets: [[path: 'secrets/metadata/creds/my-secret-text', secretValues: [[envVar: 'secrets', vaultKey: 'secret']]]]) { 
