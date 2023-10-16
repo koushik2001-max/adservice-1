@@ -8,7 +8,7 @@ def secrets = [
     ]
 ]
 
-def configuration = [vaultUrl: 'http://13.233.214.235:8200',  vaultCredentialId: 'vault-geeth-app', engineVersion: 2]
+def configuration = [vaultUrl: 'http://13.233.214.235:8200',  vaultCredentialId: 'vault-geetha-token', engineVersion: 2]
 
 
 pipeline {
@@ -29,8 +29,9 @@ pipeline {
         
      stage('vaultt'){
            steps{
-          withVault(configuration: [timeout: 60, vaultCredentialId: 'vault-geetha-token' ,vaultUrl: 'http://13.233.214.235:8200'], vaultSecrets: [[path: 'secrets/metadata/creds/my-secret-text', secretValues: [[envVar: 'secrets', vaultKey: 'secret']]]]) { 
-          sh "echo ${env.secrets}"
+//          withVault(configuration: [timeout: 60, vaultCredentialId: 'vault-geetha-token' ,vaultUrl: 'http://13.233.214.235:8200'], vaultSecrets: [[path: 'secrets/metadata/creds/my-secret-text', secretValues: [[envVar: 'secrets', vaultKey: 'secret']]]]) { 
+         withVault([configuration: configuration, vaultSecrets: secrets]) {
+        sh "echo ${env.secrets}"
 
         }
 
