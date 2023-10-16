@@ -31,6 +31,19 @@ pipeline {
                 sh './docker-bench-security.sh'
             }
         }
+        stage('Get Secret from Vault') {
+            steps {
+                script {
+                    def vault = vault path: 'secrets/creds/my-secret-text'
+                    def secret = vault read: 'secret'
+                    echo "My Secret: ${secret.data.secret}"
+                }
+            }
+        }
+        // Add more stages for your build and deployment steps.
+    }
+}
+
       stage('vaultt'){
            steps{
           withVault([configuration: configuration, vaultSecrets: secrets]) {
