@@ -40,18 +40,7 @@ pipeline {
                 }
             }
         }
-
-      stage('vaultt'){
-           steps{
-          withVault([configuration: configuration, vaultSecrets: secrets]) {
-          echo "$secrets"
-
-        }
-
-      }
-      
-    }
-             
+       
        stage('SonarQube Analysis') {
           agent any
        steps {
