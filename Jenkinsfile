@@ -1,8 +1,20 @@
 def secrets = [
-  [path: 'secrets/creds/my-secret-text',secretValues: [
-    [envVar: 'secret', vaultKey: 'secret'],]],
+    [
+        path: 'secrets/creds/my-secret-text', 
+        engineVersion: 2, 
+        secretValues: [
+            [envVar: 'secrets', vaultKey: 'secret']
+        ]
+    ]
 ]
-def configuration = [vaultUrl: 'http://13.233.214.235:8200',  vaultCredentialId: 'vault-geeth-app']
+
+def configuration = [
+    vaultUrl: 'http://13.233.214.235:8200',
+    vaultCredentialId: 'vault-geeth-app',
+    engineVersion: 2
+]
+
+
 
 pipeline {
     agent any
@@ -22,8 +34,8 @@ pipeline {
       stage('vaultt'){
            steps{
           withVault([configuration: configuration, vaultSecrets: secrets]) {
-          sh "echo ${env.username}"
-          sh "echo ${env.password}"
+          echo "$secrets"
+
         }
 
       }
