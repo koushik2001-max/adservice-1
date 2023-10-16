@@ -1,6 +1,6 @@
 def secrets = [
     [
-        path: '/v1/secrets/metadata/creds/my-secret-text', 
+        path: 'secrets/metadata/creds/my-secret-text', 
         engineVersion: 2, 
         secretValues: [
             [envVar: 'secrets', vaultKey: 'secret']
