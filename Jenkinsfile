@@ -31,7 +31,7 @@ pipeline {
         println("TEST 1")
         withCredentials([[
             $class: 'VaultTokenCredentialBinding',
-            credentialsId: 'vault-geetha-token'',
+            credentialsId: 'vault-geetha-token',
             vaultAddr: 'http://13.233.214.235:8200']]) {
             sh 'vault kv get -field=user v1/secrets/metadata/creds/my-secret-text'
         }
