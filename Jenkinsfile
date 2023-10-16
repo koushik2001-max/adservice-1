@@ -13,8 +13,8 @@ pipeline {
                 sh './docker-bench-security.sh'
             }
         }
-        stage("Test"){
-    node(defaultNodeLabel()){
+    stage('Test')
+        {
         println("TEST 1")
         withCredentials([[
             $class: 'VaultTokenCredentialBinding',
@@ -32,7 +32,6 @@ pipeline {
             sh 'echo ${env.secret}'
         }
     }
-}
 
      stage('vaultt'){
            steps{
