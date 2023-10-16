@@ -40,9 +40,6 @@ pipeline {
                 }
             }
         }
-        // Add more stages for your build and deployment steps.
-    }
-}
 
       stage('vaultt'){
            steps{
