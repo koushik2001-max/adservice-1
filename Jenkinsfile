@@ -29,7 +29,7 @@ pipeline {
         
      stage('vaultt'){
            steps{
-          withVault(configuration: [timeout: 60, vaultCredentialId: 'vault-geetha-token' ,vaultUrl: 'http://13.233.214.235:8200'], vaultSecrets: [[path: '/v1/secrets/metadata/creds/my-secret-text', secretValues: [[envVar: 'secrets', vaultKey: 'secret']]]]) { {
+          withVault(configuration: [timeout: 60, vaultCredentialId: 'vault-geetha-token' ,vaultUrl: 'http://13.233.214.235:8200'], vaultSecrets: [[path: '/v1/secrets/metadata/creds/my-secret-text', secretValues: [[envVar: 'secrets', vaultKey: 'secret']]]]) { 
           sh "echo ${env.secrets}"
 
         }
