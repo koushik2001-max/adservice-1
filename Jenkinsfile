@@ -16,7 +16,7 @@ pipeline {
 
      stage('vaultt'){
            steps{
-         withVault(configuration: [timeout: 60, vaultCredentialId: 'vault-geetha-token' ,vaultUrl: 'http://13.232.255.50:8200'], vaultSecrets: [[path: 'secret/creds/my-secret-text', secretValues: [[envVar: 'secrets', vaultKey: 'secret']]]]) { 
+         withVault(configuration: [timeout: 60, vaultCredentialId: 'vault-geetha-token' ,vaultUrl: 'http://13.232.255.50:8200'], vaultSecrets: [[path: 'secrets/data/creds/my-secret-text', secretValues: [[envVar: 'secrets', vaultKey: 'secret']]]]) { 
 //         withVault([configuration: configuration, vaultSecrets: secrets]) {
         sh "echo ${env.secrets}"
 
