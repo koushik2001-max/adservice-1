@@ -26,7 +26,7 @@ pipeline {
        stage('vault') {
          steps {
             withVault([configuration: configuration, vaultSecrets: secrets]) {
-                echo "$SONARQUBE_TOKEN"
+                echo "SonarQube Token: $SONARQUBE_TOKEN"
             }
          }
       }
