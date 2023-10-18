@@ -13,7 +13,6 @@ def configuration = [
     vaultCredentialId: 'vault-geetha-token',
     engineVersion: 2
 ]
-
 pipeline {
     agent any
     options {
@@ -23,11 +22,14 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
     }
     stages {
-        stage('vault') {
+        stage('Vault') {
             steps {
-                withVault([configuration: configuration, vaultSecrets: secrets]) {
-                    // The SONARQUBE_TOKEN variable should be set correctly
-                    echo "SonarQube Token: $SONARQUBE_TOKEN"
+                script {
+                    withVault([configuration: configuration, vaultSecrets: secrets]) {
+                        // Extract the SonarQube Token
+                        SONARQUBE_TOKEN = env.SONARQUBE_TOKEN
+                        echo "SonarQube Token: $SONARQUBE_TOKEN"
+                    }
                 }
             }
         }
@@ -37,19 +39,33 @@ pipeline {
                 sh './docker-bench-security.sh'
             }
         }
+
         stage('SonarQube Analysis') {
             agent any
             steps {
-                sh '/var/opt/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner ' +
-                '-Dsonar.projectKey=adservice-' +
-                '-Dsonar.sources=.' +
-                '-Dsonar.java.binaries=path/to/compiled/classes' +
-                '-Dsonar.exclusions=**/*.java' +
-                '-Dsonar.host.url=http://172.31.7.193:9000 ' +
-                "-Dsonar.login=$SONARQUBE_TOKEN" // Use the retrieved token
+                sh '/var/opt/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner -Dsonar.projectKey=adservice -Dsonar.sources=. -Dsonar.java.binaries=path/to/compiled/classes -Dsonar.exclusions=**/*.java -Dsonar.host.url=http://172.31.7.193:9000 -Dsonar.login=$SONARQUBE_TOKEN'
             }
         }
-        // Other stages remain unchanged
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    def dockerImage = docker.build('koushiksai/adservice:latest', '.')
+                }
+            }
+        }
+        stage('Login') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKERHUB_CREDENTIALS_USR', passwordVariable: 'DOCKERHUB_CREDENTIALS_PSW')]) {
+                    sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
+                }
+            }
+        }
+        stage('Push') {
+            steps {
+                sh 'docker push koushiksai/adservice'
+            }
+        }
     }
     post {
         always {
