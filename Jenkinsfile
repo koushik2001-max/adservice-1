@@ -19,8 +19,8 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub'),
-         SONARQUBE_TOKEN = ""
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+        SONARQUBE_TOKEN = ""
     }
     stages {
        stage('vault') {
