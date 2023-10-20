@@ -28,7 +28,7 @@ pipeline {
                     withVault([configuration: configuration, vaultSecrets: secrets]) {
                         // Extract the SonarQube Token
 //                        SONARQUBE_TOKEN = env.SONARQUBE_TOKEN
-                        sh "echo ${SONARQUBE_TOKEN}
+                        sh "echo ${SONARQUBE_TOKEN}"
                     }
                 }
             }
