@@ -9,7 +9,7 @@ def secrets = [
 ]
 
 def configuration = [
-    vaultUrl: 'http://65.0.12.82:8200',
+    vaultUrl: 'http://65.0.30.51:8200',
     vaultCredentialId: 'vault-geetha-token',
     engineVersion: 2
 ]
