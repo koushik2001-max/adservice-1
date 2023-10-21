@@ -3,7 +3,7 @@ def secrets = [
         path: 'secrets/creds/my-secret-text',
         engineVersion: 2,
         secretValues: [
-            [envVar: 'SONARQUBE_TOKEN', vaultKey: 'secret']
+            [envVar: 'SONARQUBE_TOKEN', vaultKey: 'adservice']
         ]
     ]
 ]
